@@ -43,4 +43,47 @@ module.exports = {
 
     return country;
   },
+
+  createActivity: async function (
+    name,
+    difficulty,
+    duration,
+    season,
+    countries
+  ) {
+    // Validación
+    if (!name || !difficulty || !duration || !season || !countries)
+      throw new Error('No fueron enviados todos los datos!');
+
+    const nameLow = name.toLowerCase();
+
+    const activityFound = await Activity.findOne({
+      where: {
+        name: nameLow,
+      },
+    });
+
+    let activityCreated;
+
+    if (activityFound === null) {
+      activityCreated = await Activity.create({
+        name: nameLow,
+        difficulty,
+        duration,
+        season,
+      });
+    } else {
+      return 'La actividad ya existe';
+    }
+
+    for (let i = 0; i < countries.length; i++) {
+      let country = await Country.findByPk(countries[i], {
+        include: Activity,
+      });
+
+      await country.addActivity(activityCreated);
+    }
+
+    return 'Se ha creado la actividad';
+  },
 };
