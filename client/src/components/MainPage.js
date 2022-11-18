@@ -1,31 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllCountries } from '../redux/actions';
-import Loader from './ui/Loader';
+import React from 'react';
+import SectionCards from './ui/SectionCards';
 
 function MainPage() {
-  const dispatch = useDispatch();
-  const countriesDefault = useSelector(state => state.countries);
-
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      dispatch(getAllCountries());
-      setLoading(false);
-    }, 2000);
-  }, [dispatch]);
-
   return (
-    <>
-      {loading && <Loader />}
-      {countriesDefault.length > 0
-        ? countriesDefault.map(country => (
-            <div key={country.id}>{country.name}</div>
-          ))
-        : null}
-    </>
+    <div>
+      <SectionCards />
+    </div>
   );
 }
 

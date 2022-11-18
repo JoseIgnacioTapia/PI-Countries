@@ -16,7 +16,7 @@ module.exports = sequelize => {
         },
       },
       duration: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.STRING,
         allowNull: true,
       },
       season: {

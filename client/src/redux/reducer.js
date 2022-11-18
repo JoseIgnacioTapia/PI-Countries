@@ -5,7 +5,6 @@ import {
   GET_COUNTRIES_CONTINENT,
   GET_COUNTRY_DETAIL,
   GET_SEARCH_COUNTRIES,
-  sortByName,
   SORT_BY_NAME,
   SORT_BY_POPULATION,
 } from './actions';
