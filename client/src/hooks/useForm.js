@@ -22,11 +22,20 @@ export const useForm = (initialForm, validateForm) => {
     console.log(form);
   };
 
-  // const handleCountries = e => {};
-
   const handleBlur = e => {
     handleChange(e);
     setErrors(validateForm(form));
+  };
+
+  const handleDeleteCountry = c => {
+    const newArr = form.countries.filter(
+      el => el.toLowerCase() !== c.toLowerCase()
+    );
+
+    setForm({
+      ...form,
+      countries: newArr,
+    });
   };
 
   const handleSubmit = e => {};
@@ -37,8 +46,8 @@ export const useForm = (initialForm, validateForm) => {
     loading,
     response,
     handleChange,
-    // handleCountries,
     handleBlur,
+    handleDeleteCountry,
     handleSubmit,
   };
 };

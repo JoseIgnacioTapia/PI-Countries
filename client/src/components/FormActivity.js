@@ -56,14 +56,14 @@ function Form() {
     loading,
     response,
     handleChange,
-    // handleCountries,
     handleBlur,
+    handleDeleteCountry,
     handleSubmit,
   } = useForm(initialForm, validationsForm);
 
   return (
     <div>
-      <h3>Create Activity</h3>
+      <h2>Create Activity</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Nombre:</label>
@@ -133,6 +133,14 @@ function Form() {
             ))}
           </select>
           {errors.countries && <p>{errors.countries}</p>}
+          <div>
+            {form.countries?.map(c => (
+              <div key={c}>
+                <h3>{c}</h3>
+                <button onClick={() => handleDeleteCountry(c)}>X</button>
+              </div>
+            ))}
+          </div>
         </div>
 
         <button type="submit">Crear</button>
