@@ -22,7 +22,7 @@ const validationsForm = form => {
       "El campo 'Nombre' es requerido y puede contener solo letras y espacios en blancos";
   }
 
-  if (!form.difficulty || form.difficulty > 5 || form.difficulty < 5) {
+  if (!form.difficulty || form.difficulty > 5 || form.difficulty < 1) {
     errors.difficulty = "El campo 'Dificultad' debe tener un valor entre 1 y 5";
   }
 
@@ -34,7 +34,7 @@ const validationsForm = form => {
     errors.season = "El campo 'Temporada es requerido";
   }
 
-  if (!form.countries) {
+  if (form.countries.length === 0) {
     errors.countries = 'Debe asignar la actividad al menos a un país';
   }
 
@@ -50,30 +50,16 @@ function Form() {
     dispatch(getAllCountries());
   }, [dispatch]);
 
-  const [activity, setActivity] = useState({
-    name: '',
-    difficulty: '',
-    duration: '',
-    season: '',
-    countries: [],
-  });
-
   const {
     form,
     errors,
     loading,
     response,
     handleChange,
+    // handleCountries,
     handleBlur,
     handleSubmit,
   } = useForm(initialForm, validationsForm);
-
-  const handleCountries = e => {
-    setActivity({
-      ...activity,
-      countries: [...new Set([...activity.countries, e.target.value])],
-    });
-  };
 
   return (
     <div>
@@ -136,7 +122,7 @@ function Form() {
           <select
             name="countries"
             defaultValue="default"
-            onChange={handleCountries}
+            onChange={handleChange}
             onBlur={handleBlur}
           >
             <option value="default">Elegir paises</option>
@@ -146,6 +132,7 @@ function Form() {
               </option>
             ))}
           </select>
+          {errors.countries && <p>{errors.countries}</p>}
         </div>
 
         <button type="submit">Crear</button>

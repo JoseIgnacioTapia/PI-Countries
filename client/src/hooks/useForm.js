@@ -7,13 +7,22 @@ export const useForm = (initialForm, validateForm) => {
   const [response, setResponse] = useState(null);
 
   const handleChange = e => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === 'countries') {
+      setForm({
+        ...form,
+        countries: [...new Set([...form.countries, e.target.value])],
+      });
+    } else {
+      setForm({
+        ...form,
+        [e.target.name]: e.target.value,
+      });
+    }
 
     console.log(form);
   };
+
+  // const handleCountries = e => {};
 
   const handleBlur = e => {
     handleChange(e);
@@ -28,6 +37,7 @@ export const useForm = (initialForm, validateForm) => {
     loading,
     response,
     handleChange,
+    // handleCountries,
     handleBlur,
     handleSubmit,
   };
