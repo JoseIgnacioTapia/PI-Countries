@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+const URL = 'http://localhost:3001/activities';
+
 export const useForm = (initialForm, validateForm) => {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
@@ -38,7 +40,35 @@ export const useForm = (initialForm, validateForm) => {
     });
   };
 
-  const handleSubmit = e => {};
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    if (Object.keys(validateForm(form)).length === 0) {
+      alert('Enviando formulario!');
+      setLoading(true);
+
+      // SE envía el post request , setLoading(false) y setResponse(true) con setTimeOut()
+      try {
+        await fetch(URL, {
+          method: 'POST',
+          body: JSON.stringify(form),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        setLoading(false);
+        setResponse(true);
+        setTimeout(() => setResponse(false), 5000);
+        setForm(initialForm);
+      } catch (error) {
+        setLoading(false);
+        setResponse(error.status);
+        setForm(initialForm);
+      }
+    } else {
+      return;
+    }
+  };
 
   return {
     form,

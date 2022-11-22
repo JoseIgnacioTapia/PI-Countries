@@ -31,7 +31,7 @@ const validationsForm = form => {
   }
 
   if (!form.season) {
-    errors.season = "El campo 'Temporada es requerido";
+    errors.season = "El campo 'Temporada' es requerido";
   }
 
   if (form.countries.length === 0) {
@@ -127,24 +127,35 @@ function Form() {
           >
             <option value="default">Elegir paises</option>
             {countries?.map(country => (
-              <option value={country.name} key={country.id}>
+              <option value={country.id} key={country.id}>
                 {country.name}
               </option>
             ))}
           </select>
           {errors.countries && <p>{errors.countries}</p>}
           <div>
-            {form.countries?.map(c => (
-              <div key={c}>
-                <h3>{c}</h3>
-                <button onClick={() => handleDeleteCountry(c)}>X</button>
-              </div>
-            ))}
+            {form.countries?.map(c => {
+              let obj = countries.find(el => el.id === c);
+              console.log(obj);
+              return (
+                <div key={c}>
+                  <h3>{obj.name}</h3>
+                  <button onClick={() => handleDeleteCountry(c)}>X</button>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        <button type="submit">Crear</button>
+        <button
+          type="submit"
+          disabled={Object.keys(errors).length < 1 ? false : true}
+        >
+          CREAR
+        </button>
       </form>
+      {loading && <p>Enviando...</p>}
+      {response && <p>Los datos se enviaron correctamente</p>}
     </div>
   );
 }
