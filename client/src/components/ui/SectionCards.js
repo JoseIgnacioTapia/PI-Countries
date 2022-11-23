@@ -16,7 +16,7 @@ function SectionCards() {
 
   if (countriesState.length) {
     return countriesState.map(country => (
-      <Link key={country.id} to={`/countries/${country.name}`}>
+      <Link key={country.id} to={`/countries/${country.id}`}>
         <CountryCard
           flag={country.flag}
           name={country.name}

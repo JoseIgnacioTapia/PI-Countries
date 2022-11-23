@@ -25,7 +25,7 @@ export const getAllCountries = () => {
 export const getCountryDetail = id => {
   return async function (dispatch) {
     try {
-      const response = await fetch(`/countries/${id}`);
+      const response = await fetch(`http://localhost:3001/countries/${id}`);
       const countries = await response.json();
       return dispatch({ type: GET_COUNTRY_DETAIL, payload: countries });
     } catch (error) {

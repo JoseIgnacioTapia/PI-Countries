@@ -18,7 +18,7 @@ function App() {
           <Navbar />
           <Form />
         </Route>
-        <Route exact path="/countries/:name">
+        <Route exact path="/countries/:id">
           <Navbar />
           <Country />
         </Route>
