@@ -1,8 +1,8 @@
 import {
   ERROR,
   GET_ALL_COUNTRIES,
-  GET_COUNTRIES_ACTIVITY,
-  GET_COUNTRIES_CONTINENT,
+  FILTER_BY_ACTIVITY,
+  FILTER_BY_CONTINENT,
   GET_COUNTRY_DETAIL,
   GET_SEARCH_COUNTRIES,
   SORT_BY_NAME,
@@ -12,6 +12,7 @@ import { sortByName, sortByPopulation } from '../helpers/helper.js';
 
 const initialState = {
   countries: [],
+  allCountries: [],
   countryDetail: {},
   error: {},
 };
@@ -22,6 +23,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         countries: action.payload,
+        allCountries: action.payload,
       };
 
     case GET_COUNTRY_DETAIL:
@@ -36,15 +38,20 @@ const rootReducer = (state = initialState, action) => {
         countries: action.payload,
       };
 
-    case GET_COUNTRIES_CONTINENT:
+    case FILTER_BY_CONTINENT:
+      const allCountries = state.allCountries;
+      const continentFiltered =
+        action.payload === 'default'
+          ? allCountries
+          : allCountries.filter(
+              c => c.continent.toLowerCase() === action.payload.toLowerCase()
+            );
       return {
         ...state,
-        countries: state.countries.filter(
-          c => c.continent.toLowerCase() === action.payload.toLowerCase()
-        ),
+        countries: continentFiltered,
       };
 
-    case GET_COUNTRIES_ACTIVITY:
+    case FILTER_BY_ACTIVITY:
       return {
         ...state,
         countries: state.countries.filter(country =>

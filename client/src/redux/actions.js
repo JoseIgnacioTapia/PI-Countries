@@ -1,8 +1,8 @@
 export const GET_ALL_COUNTRIES = 'GET_ALL_COUNTRIES';
 export const GET_COUNTRY_DETAIL = 'GET_COUNTRY_DETAIL';
 export const GET_SEARCH_COUNTRIES = 'GET_SEARCH_COUNTRIES';
-export const GET_COUNTRIES_CONTINENT = 'GET_COUNTRIES_CONTINENT';
-export const GET_COUNTRIES_ACTIVITY = 'GET_COUNTRIES_ACTIVITY';
+export const FILTER_BY_CONTINENT = 'FILTER_BY_CONTINENT';
+export const FILTER_BY_ACTIVITY = 'FILTER_BY_ACTIVITY';
 export const SORT_BY_NAME = 'SORT_BY_NAME';
 export const SORT_BY_POPULATION = 'SORT_BY_POPULATION';
 export const ERROR = 'ERROR';
@@ -52,12 +52,12 @@ export const getSearchCountry = name => {
   };
 };
 
-export const getCountriesByContinent = continent => {
-  return { type: GET_COUNTRIES_CONTINENT, payload: continent };
+export const filterCountriesByContinent = continent => {
+  return { type: FILTER_BY_CONTINENT, payload: continent };
 };
 
-export const getCountriesByActivity = activity => {
-  return { type: GET_COUNTRIES_ACTIVITY, payload: activity };
+export const filterCountriesByActivity = activity => {
+  return { type: FILTER_BY_ACTIVITY, payload: activity };
 };
 
 export const sortByName = order => {
