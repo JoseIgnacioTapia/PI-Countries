@@ -44,6 +44,15 @@ module.exports = {
     return country;
   },
 
+  getAllActivities: async function () {
+    const activities = await Activity.findAll({
+      include: Country,
+    });
+    if (!activities) throw new Error('Hubo un error en la petición');
+
+    return activities;
+  },
+
   createActivity: async function (
     name,
     difficulty,

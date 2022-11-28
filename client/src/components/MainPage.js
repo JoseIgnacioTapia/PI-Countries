@@ -1,13 +1,15 @@
 import React from 'react';
-import SearchForm from './ui/SearchForm';
+import SearchBar from './ui/SearchBar';
 import SectionCards from './ui/SectionCards';
+import SelectByActivity from './ui/SelectByActivity';
 import SelectByContinent from './ui/SelectByContinent';
 
 function MainPage() {
   return (
     <div>
-      <SearchForm />
+      <SearchBar />
       <SelectByContinent />
+      <SelectByActivity />
       <SectionCards />
     </div>
   );

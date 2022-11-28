@@ -7,6 +7,7 @@ import {
   GET_SEARCH_COUNTRIES,
   SORT_BY_NAME,
   SORT_BY_POPULATION,
+  GET_ALL_ACTIVITIES,
 } from './actions';
 import { sortByName, sortByPopulation } from '../helpers/helper.js';
 
@@ -14,6 +15,8 @@ const initialState = {
   countries: [],
   allCountries: [],
   countryDetail: {},
+  activities: [],
+  allActivities: [],
   error: {},
 };
 
@@ -38,6 +41,13 @@ const rootReducer = (state = initialState, action) => {
         countries: action.payload,
       };
 
+    case GET_ALL_ACTIVITIES:
+      return {
+        ...state,
+        activities: action.payload,
+        allActivities: action.payload,
+      };
+
     case FILTER_BY_CONTINENT:
       const allCountries = state.allCountries;
       const continentFiltered =
@@ -52,13 +62,18 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_ACTIVITY:
+      const allNewCountries = state.allCountries;
+      const allActivities = state.allActivities;
+      console.log(state.allCountries);
+      const countriesActivityFiltered =
+        action.payload === 'default'
+          ? allNewCountries
+          : allActivities.find(
+              act => act.name.toLowerCase() === action.payload.toLowerCase()
+            ).countries;
       return {
         ...state,
-        countries: state.countries.filter(country =>
-          country.activities
-            .map(activity => activity.name.toLowerCase())
-            .includes(action.payload.toLowerCase())
-        ),
+        countries: countriesActivityFiltered,
       };
 
     case SORT_BY_NAME:

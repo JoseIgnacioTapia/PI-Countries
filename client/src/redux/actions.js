@@ -1,6 +1,7 @@
 export const GET_ALL_COUNTRIES = 'GET_ALL_COUNTRIES';
 export const GET_COUNTRY_DETAIL = 'GET_COUNTRY_DETAIL';
 export const GET_SEARCH_COUNTRIES = 'GET_SEARCH_COUNTRIES';
+export const GET_ALL_ACTIVITIES = 'GET_ALL_ACTIVITIES';
 export const FILTER_BY_CONTINENT = 'FILTER_BY_CONTINENT';
 export const FILTER_BY_ACTIVITY = 'FILTER_BY_ACTIVITY';
 export const SORT_BY_NAME = 'SORT_BY_NAME';
@@ -40,9 +41,26 @@ export const getCountryDetail = id => {
 export const getSearchCountry = name => {
   return async function (dispatch) {
     try {
-      const response = await fetch(`/countries?name=${name}`);
+      const response = await fetch(
+        `http://localhost:3001/countries?name=${name}`
+      );
       const countries = await response.json();
       return dispatch({ type: GET_SEARCH_COUNTRIES, payload: countries });
+    } catch (error) {
+      dispatch({
+        type: ERROR,
+        payload: error,
+      });
+    }
+  };
+};
+
+export const getAllActivities = () => {
+  return async function (dispatch) {
+    try {
+      const response = await fetch('http://localhost:3001/activities');
+      const activities = await response.json();
+      return dispatch({ type: GET_ALL_ACTIVITIES, payload: activities });
     } catch (error) {
       dispatch({
         type: ERROR,

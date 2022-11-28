@@ -36,7 +36,7 @@ function SectionCards() {
         totalCountries={countriesState.length}
         paginado={paginado}
       />
-      {currentCountries.length &&
+      {currentCountries.length ? (
         currentCountries.map(country => (
           <Link key={country.id} to={`/countries/${country.id}`}>
             <CountryCard
@@ -45,7 +45,10 @@ function SectionCards() {
               continent={country.continent}
             />
           </Link>
-        ))}
+        ))
+      ) : (
+        <p>Sin resultados</p>
+      )}
     </div>
   );
 }

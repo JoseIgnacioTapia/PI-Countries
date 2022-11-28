@@ -1,12 +1,16 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { getSearchCountry } from '../../redux/actions';
 
-function SearchForm({ handleSearch }) {
+function SearchBar() {
   const [countryInput, setCountryInput] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleChange = e => {
+  const dispatch = useDispatch();
+
+  const handleInputChange = e => {
     setCountryInput(e.target.value);
+    console.log(countryInput);
   };
 
   const handleSubmit = e => {
@@ -17,7 +21,7 @@ function SearchForm({ handleSearch }) {
       return;
     }
 
-    getSearchCountry(countryInput);
+    dispatch(getSearchCountry(countryInput));
     setCountryInput('');
   };
 
@@ -29,7 +33,7 @@ function SearchForm({ handleSearch }) {
         id="country"
         placeholder="País"
         value={countryInput}
-        onChange={handleChange}
+        onChange={e => handleInputChange(e)}
       />
       {message && <p>{message}</p>}
       <input type="submit" value="Buscar" />
@@ -37,4 +41,4 @@ function SearchForm({ handleSearch }) {
   );
 }
 
-export default SearchForm;
+export default SearchBar;
