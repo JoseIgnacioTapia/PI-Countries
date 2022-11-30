@@ -77,9 +77,21 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case SORT_BY_NAME:
+      let sortedArr =
+        action.payload === 'asc'
+          ? state.countries.sort((a, b) => {
+              if (a.name < b.name) return -1;
+              if (a.name > b.name) return 1;
+              else return 0;
+            })
+          : state.countries.sort((a, b) => {
+              if (a.name < b.name) return 1;
+              if (a.name > b.name) return -1;
+              else return 0;
+            });
       return {
         ...state,
-        countries: sortByName(action.payload, state.countries),
+        countries: sortedArr,
       };
 
     case SORT_BY_POPULATION:
