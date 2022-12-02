@@ -8,13 +8,13 @@ function Country() {
   console.log(id);
   const countryDetail = useSelector(state => state.countryDetail);
   const error = useSelector(state => state.error);
+  console.log(error);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCountryDetail(id));
   }, [dispatch, id]);
-  console.log(countryDetail);
 
   return (
     <div>
@@ -26,6 +26,7 @@ function Country() {
       <h4>{countryDetail.population} habitantes</h4>
       <h4>{countryDetail.area} km²</h4>
 
+      {Object.keys(error).length !== 0 ? <p>Sucedió un problema</p> : null}
       {countryDetail.activities?.map(act => {
         return (
           <div key={act.id}>

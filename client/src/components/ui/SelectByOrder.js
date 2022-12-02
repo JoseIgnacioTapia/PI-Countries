@@ -1,15 +1,14 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { sortByName } from '../../redux/actions.js';
-
-function SelectByOrder() {
-  const [order, setOrder] = useState('');
-  const dispatch = useDispatch();
-
+function SelectByOrder({ setOrderAlpha, setOrderPop, setCurrentPage }) {
   const handleSortAlpha = e => {
     e.preventDefault();
-    dispatch(sortByName(e.target.value));
-    setOrder('Ordered');
+    setOrderAlpha(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleSortPop = e => {
+    e.preventDefault();
+    setOrderPop(e.target.value);
+    setCurrentPage(1);
   };
 
   return (
@@ -24,7 +23,7 @@ function SelectByOrder() {
       </div>
       <div>
         <label>Cantidad de población</label>
-        <select>
+        <select onChange={handleSortPop}>
           <option value="asc">Ascendente</option>
           <option value="desc">Descendente</option>
         </select>

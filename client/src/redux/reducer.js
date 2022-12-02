@@ -95,9 +95,17 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case SORT_BY_POPULATION:
+      let sortedPop =
+        action.payload === 'asc'
+          ? state.countries.sort((a, b) => {
+              return a.population - b.population;
+            })
+          : state.countries.sort((a, b) => {
+              return b.population - a.population;
+            });
       return {
         ...state,
-        countries: sortByPopulation(action.payload, state.countries),
+        countries: sortedPop,
       };
 
     case ERROR:

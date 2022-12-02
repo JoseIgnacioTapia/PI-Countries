@@ -47,6 +47,7 @@ export const getSearchCountry = name => {
       const countries = await response.json();
       return dispatch({ type: GET_SEARCH_COUNTRIES, payload: countries });
     } catch (error) {
+      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,
@@ -62,6 +63,7 @@ export const getAllActivities = () => {
       const activities = await response.json();
       return dispatch({ type: GET_ALL_ACTIVITIES, payload: activities });
     } catch (error) {
+      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,
